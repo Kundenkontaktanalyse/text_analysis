@@ -12,7 +12,7 @@ from pyspark.sql import SQLContext
 
 
 sqlContext = SQLContext(sc)
-path = "/usr/local/spark/data/rezension" # path of the txt file
+path = "/usr/local/spark/data/rezension_negativ" # path of the txt file
 
 
 # Daten laden, Umlaute umwandeln, in Kleinbuchstaben umwandeln
