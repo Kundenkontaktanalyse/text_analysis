@@ -4,6 +4,7 @@ from pyspark.sql.types import IntegerType
 from pyspark.ml.feature import HashingTF, IDF, Tokenizer, CountVectorizer
 from pyspark.sql.functions import monotonically_increasing_id
 from pyspark.mllib.clustering import LDA, LDAModel
+from pyspark.sql import Row 
 
 ################ Daten laden und Dataframe erstellen ################
 
