@@ -1,5 +1,5 @@
 from pyspark.ml.feature import Tokenizer, RegexTokenizer
-from pyspark.sql.functions import col, udf, row
+from pyspark.sql.functions import col, udf
 from pyspark.sql.types import IntegerType
 from pyspark.ml.feature import HashingTF, IDF, Tokenizer, CountVectorizer
 from pyspark.sql.functions import monotonically_increasing_id
