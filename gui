@@ -1,0 +1,79 @@
+from Tkinter import *
+# if you are working under Python 3, comment the previous line and comment out the following line
+#from tkinter import *
+
+master = Tk()
+
+master.title("Clustering")
+
+Label(master, text="Anzahl der Topics: ").grid(row=0, sticky=W)
+Label(master, text="Anzahl der Wörter pro Topic: ").grid(row=1, sticky=W)
+Label(master, text="Anzahl der Clustering Iterationen: ").grid(row=2, sticky=W)
+Label(master, text="Zielorder: ").grid(row=3, sticky=W)
+
+e1 = Entry(master)
+e2 = Entry(master)
+e3 = Entry(master)
+e4 = Entry(master)
+e5 = Entry(master)
+e6 = Entry(master)
+
+e1.grid(row=0, column=1)
+e2.grid(row=1, column=1)
+e3.grid(row=2, column=1)
+e4.grid(row=3, column=1)
+e5.grid(row=5, column=1)
+e6.grid(row=6, column=1)
+
+
+# Methode zum Beenden des Fenster 
+def endProgram():
+    # top.quit()
+    master.destroy()   
+
+# Methode zum Auswahlen des Ordners 
+def openDirectory():
+    dirname = tkFileDialog.askdirectory(parent=master,initialdir="/",title='Waehle einen Ordner aus')
+    if len(dirname ) > 0:
+        print "Pfad des Ordners: %s" % dirname 
+        e5.insert(0,dirname)
+
+# Methode zum Auswaehlen der Textdatei  
+def openfile():
+    filename= tkFileDialog.askopenfilename(parent=master,initialdir="/", title='Waehle eine Textdatei aus')    
+    if len(filename ) > 0:
+        print "Pfad der Textdatei: %s\n" % filename 
+        e6.insert(0,filename)
+
+
+# Methode wird durch den Bestätigen-Button ausgeloest
+# Ueberprueft nach gueltiger Eingabe
+# Loest Datenvorverarbeitung und Clusteringalgorithmus aus
+
+def show_entry_fields():
+    
+    try:
+        a = int(e1.get())
+        b = int(e2.get())
+        c = int(e3.get())
+    except ValueError:
+        print("Die Eingabe ist ungültig")
+    else:
+        print("Anzahl der Topics Name: %s\n\nAnzahl der Wörter pro Topic: %s\n\nAnzahl der Clustering Iterationen: %s\n\n" % (e1.get(), e2.get(), e3.get()))
+        path = e6.get()
+        anzahlTopics = int(e1.get())
+        anzahlIterationen = int(e3.get())
+        anzahlWoerter = int(e2.get())
+        dataframe = Datenbearbeitung(path)
+        Clustering(dataframe, anzahlTopics, anzahlIterationen, anzahlWoerter)
+        endProgram()
+        
+# Definition der Buttons     
+
+Button(master, text = 'Ordner auswählen', command=openDirectory).grid(row=5, column=0,sticky=W, pady=4)
+Button(master, text = 'Textdatei auswählen', command=openfile).grid(row=6, column=0,sticky=W, pady=4)
+Tkinter.Button(master, text='Abbrechen', command=endProgram).grid(row=7, column=0, sticky=W, pady=4)
+Button(master, text='Bestätigen', command=show_entry_fields).grid(row=7, column=1, sticky=W, pady=4)
+
+
+master.mainloop()
