@@ -1,114 +1,118 @@
-from pyspark.ml.feature import Tokenizer, RegexTokenizer
-from pyspark.sql.functions import col, udf
+from pyspark.ml.feature import Tokenizer, RegexTokenizer, HashingTF, IDF, CountVectorizer, StopWordsRemover
+from pyspark.sql.functions import col, udf, monotonically_increasing_id
 from pyspark.sql.types import IntegerType
-from pyspark.ml.feature import HashingTF, IDF, Tokenizer, CountVectorizer
-from pyspark.sql.functions import monotonically_increasing_id
 from pyspark.mllib.clustering import LDA, LDAModel
-from pyspark.sql import Row 
+from pyspark.sql import Row
+from pyspark.sql import SQLContext
+from nltk.corpus import stopwords
+
 
 ################ Daten laden und Dataframe erstellen ################
 
-from pyspark.sql import SQLContext
 
+def Datenbearbeitung(path):
 
-
-sqlContext = SQLContext(sc)
-path = "/usr/local/spark/data/rezension_negativ" # path of the txt file
+    sqlContext = SQLContext(sc)
+    
+    path = path
+    
+    #path = "/usr/local/spark/data/rezension_negativ" 
 
 
 # Daten laden, Umlaute umwandeln, in Kleinbuchstaben umwandeln
-data = sc.textFile(path).zipWithIndex().map(lambda (text,id): Row(id= id, text = text.lower().replace(u'ß', 'ss').replace(u'ö', 'oe').replace(u'ü', 'ue').replace(u'ä', 'ae')))
+    data = sc.textFile(path).zipWithIndex().map(lambda (text,id): Row(id= id, text = text.lower().replace(u'ß', 'ss').replace(u'ö', 'oe').replace(u'ü', 'ue').replace(u'ä', 'ae')))
 
-textDataFrame = sqlContext.createDataFrame(data)
-textDataFrame.show()
+    textDataFrame = sqlContext.createDataFrame(data)
+    textDataFrame.show()
 
 
 ################# Tokenizer ################
 
-
-from pyspark.ml.feature import Tokenizer, RegexTokenizer
-
-
-tokenizer = Tokenizer(inputCol="text", outputCol="words")
-tokenized = tokenizer.transform(textDataFrame)
-#for words_id in tokenized.select("words", "id").take(3):
-#    print(words_id)
+    tokenizer = Tokenizer(inputCol="text", outputCol="words")
+    tokenized = tokenizer.transform(textDataFrame)
+    #for words_id in tokenized.select("words", "id").take(3):
+    #    print(words_id)
+    #tokenized.show(7)    
     
-#tokenized.show(7)    
     
-regexTokenizer = RegexTokenizer(inputCol="text", outputCol="words", pattern="\\W")
-# alternatively, pattern="\\w+", gaps(False)
-regexTokenized = regexTokenizer.transform(textDataFrame)
-#for words_id in regexTokenized.select("words", "id").take(3):
-#   print(words_id)
-
-
-#regexTokenized.show(7)
-
+    regexTokenizer = RegexTokenizer(inputCol="text", outputCol="words", pattern="[^1-9a-zA-Z\-\&]")
+    # alternatively, pattern="\\w+", gaps(False)
+    regexTokenized = regexTokenizer.transform(textDataFrame)
+    #for words_id in regexTokenized.select("words", "id").take(3):
+    #   print(words_id)
+    #regexTokenized.show(7)
+    
+    
 
 ################ Stopwordremover ################
-
-
-from pyspark.ml.feature import StopWordsRemover
-
-
-from nltk.corpus import stopwords
-
-stopwordNltk = list(stopwords.words('german'))
-
-stopwordsSpark = open("/usr/local/spark/data/stopwordsSpark").read().splitlines()
-
-stopword = ['a', 'agent', 'kunde' , '' , 'hallo', '0' , '1' , '2', '3' , '4' , '5' , '6' , '7' , '8' , '9' , '10' , '11' , '12' , '13' , '14' ]
-
-stop = stopword + stopwordsSpark + stopwordNltk
-
-remover = StopWordsRemover(inputCol="words", outputCol="filtered", stopWords = stop)
-
-clean_text = remover.transform(regexTokenized)
-#clean_text.show(truncate=False)
-
-clean_text.show(7)
-
+    
+    stopwordNltk = list(stopwords.words('german'))
+    
+    for i in range(len(stopwordNltk)):
+        stopwordNltk[i] = stopwordNltk[i].replace(u'ö', 'oe').replace(u'ü', 'ue').replace(u'ä', 'ae').replace(u'ß', 'ss')
+    
+    stopwordsSpark = open("/usr/local/spark/data/stopwordsSpark").read().splitlines()
+    stopword = ['denen','agent', 'kunde' , '' , 'hallo', 'wurde', 'dass', 'wurdest', 'wurden', 'wurdet', '&', '-', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    stop = stopword + stopwordsSpark + stopwordNltk
+    remover = StopWordsRemover(inputCol="words", outputCol="filtered", stopWords = stop)
+    clean_text = remover.transform(regexTokenized)
+    #clean_text.show(truncate=False)
+    clean_text.show(7)
+    
+    return clean_text
 
 ################ Vectorisieren ################
 
-clean = clean_text.select("id" , "filtered")
-Vector = CountVectorizer(inputCol="filtered", outputCol="vectors")
-model = Vector.fit(clean)
-result = model.transform(clean)
-
-corpus_size = result.count()  # total number of words
-corpus = result.select("id", "vectors").map(lambda (x,y): [x,y]).cache()
-
+def Clustering(dataframe, anzahlTopics, anzahlIterationen, anzahlWoerter):
+    
+    anzahlTopics = anzahlTopics
+    anzahlIterationen = anzahlIterationen
+    anzahlWoerter = anzahlWoerter    
+    clean_text = dataframe
+    
+    
+    clean = clean_text.select("id" , "filtered")
+    Vector = CountVectorizer(inputCol="filtered", outputCol="vectors")
+    model = Vector.fit(clean)
+    result = model.transform(clean)
+    corpus_size = result.count()  # total number of words
+    corpus = result.select("id", "vectors").map(lambda (x,y): [x,y]).cache()
 
 ################ LDA Clustering ################
 
-ldaModel = LDA.train(corpus, k=5,maxIterations=100,optimizer='online')
-topics = ldaModel.topicsMatrix()
-vocabArray = model.vocabulary
 
-wordNumbers = 10  # number of words per topic
-topicIndices = sc.parallelize(ldaModel.describeTopics(maxTermsPerTopic = wordNumbers))
+    ldaModel = LDA.train(corpus, k=anzahlTopics, maxIterations=anzahlIterationen, optimizer='online')
+    topics = ldaModel.topicsMatrix()
+    vocabArray = model.vocabulary
 
-def topic_render(topic):  # specify vector id of words to actual words
-    terms = topic[0]
-    result = []
-    for i in range(wordNumbers):
-        term = vocabArray[terms[i]]
-        result.append(term)
-    return result
+    wordNumbers = 10  # number of words per topic
+    topicIndices = sc.parallelize(ldaModel.describeTopics(maxTermsPerTopic = anzahlWoerter))
+
+    def topic_render(topic):  # specify vector id of words to actual words
+        terms = topic[0]
+        result = []
+        for i in range(anzahlWoerter):
+            term = vocabArray[terms[i]]
+            result.append(term)
+        return result
     
-topics_final = topicIndices.map(lambda topic: topic_render(topic)).collect()
+    topics_final = topicIndices.map(lambda topic: topic_render(topic)).collect()
 
-for topic in range(len(topics_final)):
-    print "Topic" + str(topic)
-    for term in topics_final[topic]:
-        print term
-    print '\n'
+    for topic in range(len(topics_final)):
+        print "Topic" + str(topic)
+        for term in topics_final[topic]:
+            print term
+        print '\n'
+    
+    
+# Output topics. Each is a distribution over words (matching word count vectors)
 
+    print("Learned topics (as distributions over vocab of " + str(ldaModel.vocabSize()) + " words):")
+    topics = ldaModel.topicsMatrix()
+    for topic in range(3):
+        print("Topic " + str(topic) + ":")
+        for word in range(0, ldaModel.vocabSize()):
+            print("" + str(topics[word][topic]))
 
-
-
-
-
-
+    
+    
