@@ -1,4 +1,23 @@
+#####################################################################
+#               parameters to be set (in GUI)                       #
+#####################################################################
+
+# train data folder
+#path = "/media/chris/Platte/Testdateien/negative_red" # path of the txt file
+#wordNumbers = 10  # number of words per topic
+#numberClusters = 4 # number of topics
+#ldaIterations = 100 # number of clustering iterations
+#index = "default" #NameFürOrdnerDerEingeteiltenDokumente
+
+###### hidden for User ##########
+stopWordsSpark = "/usr/local/spark/data/stopwordsSpark"
+#clusterDestination = "/media/chris/Platte/Testdateien"
+
+###################GUI########################
+
 from Tkinter import *
+from tkFileDialog import *
+import tkFileDialog
 # if you are working under Python 3, comment the previous line and comment out the following line
 #from tkinter import *
 
@@ -23,22 +42,21 @@ e2.grid(row=1, column=1)
 e3.grid(row=2, column=1)
 e4.grid(row=3, column=1)
 e5.grid(row=5, column=1)
-e6.grid(row=6, column=1)
+#e6.grid(row=6, column=1)
 
 
-# Methode zum Beenden des Fenster 
+# closes the window 
 def endProgram():
-    # top.quit()
     master.destroy()   
 
-# Methode zum Auswahlen des Ordners 
+# chooses the path of a directory
 def openDirectory():
     dirname = tkFileDialog.askdirectory(parent=master,initialdir="/",title='Waehle einen Ordner aus')
     if len(dirname ) > 0:
         print "Pfad des Ordners: %s" % dirname 
         e5.insert(0,dirname)
 
-# Methode zum Auswaehlen der Textdatei  
+# chooses the path of a textfile 
 def openfile():
     filename= tkFileDialog.askopenfilename(parent=master,initialdir="/", title='Waehle eine Textdatei aus')    
     if len(filename ) > 0:
@@ -61,19 +79,26 @@ def show_entry_fields():
     else:
         print("Anzahl der Topics Name: %s\n\nAnzahl der Wörter pro Topic: %s\n\nAnzahl der Clustering Iterationen: %s\n\n" % (e1.get(), e2.get(), e3.get()))
         path = e6.get()
-        anzahlTopics = int(e1.get())
-        anzahlIterationen = int(e3.get())
-        anzahlWoerter = int(e2.get())
-        dataframe = Datenbearbeitung(path)
-        Clustering(dataframe, anzahlTopics, anzahlIterationen, anzahlWoerter)
-        endProgram()
+        numberTopics = int(e1.get())
+        numberIterations = int(e3.get())
+        numberTopicwords = int(e2.get())
         
-# Definition der Buttons     
+        pathOrdner = str(e5.get())
+        index = e4.get()
+        clusterDestination = "/usr/local/spark/data/destination"
+        createDirectories(clusterDestination, numberTopics, index, numberTopicwords)
+        Clustering(pathOrdner, numberTopics, numberIterations, numberTopicwords, index, clusterDestination)
+        #assignDocumentsToTopic(pathOrdner, anzahlWoerter)
+        endProgram()
 
+# definition of the buttons     
 Button(master, text = 'Ordner auswählen', command=openDirectory).grid(row=5, column=0,sticky=W, pady=4)
-Button(master, text = 'Textdatei auswählen', command=openfile).grid(row=6, column=0,sticky=W, pady=4)
-Tkinter.Button(master, text='Abbrechen', command=endProgram).grid(row=7, column=0, sticky=W, pady=4)
+#Button(master, text = 'Textdatei auswählen', command=openfile).grid(row=6, column=0,sticky=W, pady=4)
+Button(master, text='Abbrechen', command=endProgram).grid(row=7, column=0, sticky=W, pady=4)
 Button(master, text='Bestätigen', command=show_entry_fields).grid(row=7, column=1, sticky=W, pady=4)
 
 
 master.mainloop()
+
+#sc.stop()
+
