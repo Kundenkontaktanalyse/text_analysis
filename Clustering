@@ -1,76 +1,123 @@
-from pyspark.ml.feature import Tokenizer, RegexTokenizer, HashingTF, IDF, CountVectorizer, StopWordsRemover
-from pyspark.sql.functions import col, udf, monotonically_increasing_id
+#####################################################################
+#                      import libraries                             #
+#####################################################################
+from pyspark.ml.feature import Tokenizer, RegexTokenizer
+from pyspark.sql.functions import col, udf
 from pyspark.sql.types import IntegerType
+from pyspark.ml.feature import HashingTF, IDF, Tokenizer, CountVectorizer
+from pyspark.sql.functions import monotonically_increasing_id
 from pyspark.mllib.clustering import LDA, LDAModel
 from pyspark.sql import Row
 from pyspark.sql import SQLContext
+from pyspark.ml.feature import Tokenizer, RegexTokenizer
+from pyspark.ml.feature import StopWordsRemover
 from nltk.corpus import stopwords
+from shutil import copyfile
+import os
+import math
+from pyspark.sql.functions import monotonically_increasing_id
 
+#####################################################################
+#                        function definitions                       #
+#####################################################################
 
-################ Daten laden und Dataframe erstellen ################
+# return max index of a list l
+def maxList(l): return l.index(max(l))
 
+# specify vector id of words to actual words
+def topic_render(topic, words, woerter):  # specify vector id of words to actual words
+    wordNumbers=woerter
+    vocabArray=words
+    terms = topic[0]    
+    result = []
+    if wordNumbers > len(terms): 
+        maxIndex=len(terms)
+    else: maxIndex=wordNumbers
+    for t in range(maxIndex):
+        term = vocabArray[terms[t]]        
+        result.append(term)
+        print result
+    return result
+#Saves the topTopics into Directory in a .txt file
+def saveTopTopics(neu, newFile, topTops, name, number):
+    a = neu + "/" + name + "/" + "topics" + number + newFile, "w"
+    print a
+    text_file = open(neu + "/" + name + "/" + "topics" + number + newFile, "w")
+    myText = " ".join(topTops[0])
+    text_file.write(myText)
+    text_file.close()
 
-def Datenbearbeitung(path):
+#creates new directories for documents and topTopics
+def createDirectories(dirName, numCluster, name, words):
+    wordNumbers = words
+    #dirName=clusterDestination
+    #numCluster=numberClusters
+    #name=index
+    for b in range(numCluster):
+                myTopicId="/" + str(b)
+                NewDirectoryName=dirName + "/" + name + "/" + "documents" + myTopicId
+                NewDirectoryTopics=dirName + "/" + name + "/" + "topics" + myTopicId
+                if not os.path.exists(NewDirectoryName):
+                    os.makedirs(NewDirectoryName)
+                    print NewDirectoryName + " was created"
+                if not os.path.exists(NewDirectoryTopics):
+                    os.makedirs(NewDirectoryTopics)
+                    print NewDirectoryTopics + " was created"
 
+################ load documents and  und ################
+def Clustering(path, numberClusters, ldaIterations, wordNumbers, name, newPath):
+    clusterDestination=newPath
+    index = name
     sqlContext = SQLContext(sc)
-    
-    path = path
-    
-    #path = "/usr/local/spark/data/rezension_negativ" 
 
+    ######### load and preprocess data ############
+  
+    rdd = sc.wholeTextFiles(path).map(lambda (id, text): Row(id= id, text = text.lower().replace(u'ß', 'ss').replace(u'ö', 'oe').replace(u'ü', 'ue').replace(u'ä', 'ae').replace("\n", "")))
+    textDataFrame = sqlContext.createDataFrame(rdd)
+    dfsort = textDataFrame.sort('id', ascending=True)
+    textDataFrame = dfsort.withColumn("id",  monotonically_increasing_id())   
 
-# Daten laden, Umlaute umwandeln, in Kleinbuchstaben umwandeln
-    data = sc.textFile(path).zipWithIndex().map(lambda (text,id): Row(id= id, text = text.lower().replace(u'ß', 'ss').replace(u'ö', 'oe').replace(u'ü', 'ue').replace(u'ä', 'ae')))
+    ################# tokenizer ################
 
-    textDataFrame = sqlContext.createDataFrame(data)
-    textDataFrame.show()
-
-
-################# Tokenizer ################
-
-    tokenizer = Tokenizer(inputCol="text", outputCol="words")
-    tokenized = tokenizer.transform(textDataFrame)
-    #for words_id in tokenized.select("words", "id").take(3):
-    #    print(words_id)
-    #tokenized.show(7)    
-    
-    
-    regexTokenizer = RegexTokenizer(inputCol="text", outputCol="words", pattern="[^1-9a-zA-Z\-\&]")
-    # alternatively, pattern="\\w+", gaps(False)
+    # pattern: all characters up to '1-9', 'a-z', '-' and '&' are filtered
+    regexTokenizer = RegexTokenizer(inputCol="text", outputCol="words", pattern="[^1-9a-z\-\&]")
     regexTokenized = regexTokenizer.transform(textDataFrame)
-    #for words_id in regexTokenized.select("words", "id").take(3):
-    #   print(words_id)
-    #regexTokenized.show(7)
     
+    
+    from pyspark.sql.functions import udf
+    from pyspark.sql.types import StringType, ArrayType
+
+    def entferneZahlen(liste):
+        for i in range(len(liste)):
+            if (liste[i].isdigit() == True) or (len(liste[i]) == 1) :
+                liste[i] = ''   
+            else: liste[i]=liste[i]
+        return liste
+
+    dummy_function_udf = udf(entferneZahlen, ArrayType(StringType()))
+    df = regexTokenized.withColumn("words", dummy_function_udf(regexTokenized['words']))
+    df.show()
+    
+    regexTokenized = df
     
 
-################ Stopwordremover ################
-    
+    ################ stopwordRemover ################
+
     stopwordNltk = list(stopwords.words('german'))
     
     for i in range(len(stopwordNltk)):
         stopwordNltk[i] = stopwordNltk[i].replace(u'ö', 'oe').replace(u'ü', 'ue').replace(u'ä', 'ae').replace(u'ß', 'ss')
     
     stopwordsSpark = open("/usr/local/spark/data/stopwordsSpark").read().splitlines()
-    stopword = ['denen','agent', 'kunde' , '' , 'hallo', 'wurde', 'dass', 'wurdest', 'wurden', 'wurdet', '&', '-', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    stopword = open("/usr/local/spark/data/stopwords").read().splitlines()
     stop = stopword + stopwordsSpark + stopwordNltk
     remover = StopWordsRemover(inputCol="words", outputCol="filtered", stopWords = stop)
     clean_text = remover.transform(regexTokenized)
-    #clean_text.show(truncate=False)
-    clean_text.show(7)
     
-    return clean_text
+    clean_text.show()
 
-################ Vectorisieren ################
+    ################ vectorizer ################
 
-def Clustering(dataframe, anzahlTopics, anzahlIterationen, anzahlWoerter):
-    
-    anzahlTopics = anzahlTopics
-    anzahlIterationen = anzahlIterationen
-    anzahlWoerter = anzahlWoerter    
-    clean_text = dataframe
-    
-    
     clean = clean_text.select("id" , "filtered")
     Vector = CountVectorizer(inputCol="filtered", outputCol="vectors")
     model = Vector.fit(clean)
@@ -78,41 +125,111 @@ def Clustering(dataframe, anzahlTopics, anzahlIterationen, anzahlWoerter):
     corpus_size = result.count()  # total number of words
     corpus = result.select("id", "vectors").map(lambda (x,y): [x,y]).cache()
 
-################ LDA Clustering ################
+    ################ LDA Clustering ################
 
-
-    ldaModel = LDA.train(corpus, k=anzahlTopics, maxIterations=anzahlIterationen, optimizer='online')
+    ldaModel = LDA.train(corpus, k=numberClusters, maxIterations=ldaIterations, optimizer='online')
     topics = ldaModel.topicsMatrix()
-    vocabArray = model.vocabulary
+    vocabArray = model.vocabulary #2711 zeilen bei allen rezensionen
+    topicIndices = sc.parallelize(ldaModel.describeTopics(maxTermsPerTopic = wordNumbers))
 
-    wordNumbers = 10  # number of words per topic
-    topicIndices = sc.parallelize(ldaModel.describeTopics(maxTermsPerTopic = anzahlWoerter))
-
-    def topic_render(topic):  # specify vector id of words to actual words
-        terms = topic[0]
-        result = []
-        for i in range(anzahlWoerter):
-            term = vocabArray[terms[i]]
-            result.append(term)
-        return result
-    
-    topics_final = topicIndices.map(lambda topic: topic_render(topic)).collect()
+    topics_final = topicIndices.map(lambda topic: topic_render(topic, vocabArray, wordNumbers)).collect()
 
     for topic in range(len(topics_final)):
         print "Topic" + str(topic)
         for term in topics_final[topic]:
             print term
-        print '\n'
+        print '\n' 
     
-    
-# Output topics. Each is a distribution over words (matching word count vectors)
+    #createDirectories(clusterDestination, numberClusters, index)
+    for file in os.listdir(path):
+        if file.endswith(""):
+            basenameOfFile = os.path.basename(file) 
+            pathToSingleDocument = path + "/" + basenameOfFile #kompletterPfadZumDocument
 
-    print("Learned topics (as distributions over vocab of " + str(ldaModel.vocabSize()) + " words):")
-    topics = ldaModel.topicsMatrix()
-    for topic in range(3):
-        print("Topic " + str(topic) + ":")
-        for word in range(0, ldaModel.vocabSize()):
-            print("" + str(topics[word][topic]))
+    ######### load and preprocess document ############
+            rdd = sc.wholeTextFiles(pathToSingleDocument).map(lambda (id, text): Row(id= id, text = text.lower().replace(u'ß', 'ss').replace(u'ö', 'oe').replace(u'ü', 'ue').replace(u'ä', 'ae').replace("\n", "")))
+            textDataFrame = sqlContext.createDataFrame(rdd)
+            dfsort = textDataFrame.sort('id', ascending=True)
+            textDataFrame = dfsort.withColumn("id",  monotonically_increasing_id())   
+ 
 
+    ################# tokenizer ################
+            
+            regexTokenizer = RegexTokenizer(inputCol="text", outputCol="words", pattern="[^1-9a-zA-Z\-\&]")
+            regexTokenized = regexTokenizer.transform(textDataFrame)
+            
+            
+            from pyspark.sql.functions import udf
+            from pyspark.sql.types import StringType, ArrayType
+
+            def entferneZahlen(liste):
+                for i in range(len(liste)):
+                    if (liste[i].isdigit() == True) or (len(liste[i]) == 1) :
+                        liste[i] = ''   
+                    else: liste[i]=liste[i]
+                return liste
+
+            dummy_function_udf = udf(entferneZahlen, ArrayType(StringType()))
+            df = regexTokenized.withColumn("words", dummy_function_udf(regexTokenized['words']))
+            df.show()
     
+            regexTokenized = df
+            
+
+    ################ stopwordRemover ################
+
+            stopwordNltk = list(stopwords.words('german'))
     
+            for i in range(len(stopwordNltk)):
+                stopwordNltk[i] = stopwordNltk[i].replace(u'ö', 'oe').replace(u'ü', 'ue').replace(u'ä', 'ae').replace(u'ß', 'ss')
+    
+            stopwordsSpark = open("/usr/local/spark/data/stopwordsSpark").read().splitlines()
+            stopword =  open("/usr/local/spark/data/stopwords").read().splitlines()
+            stop = stopword + stopwordsSpark + stopwordNltk
+            remover = StopWordsRemover(inputCol="words", outputCol="filtered", stopWords = stop)
+            #clean_text = remover.transform(regexTokenized)
+
+    ################ Vectorisieren ################
+
+            clean = clean_text.select("id" , "filtered")
+            Vector = CountVectorizer(inputCol="filtered", outputCol="vectors")
+            model = Vector.fit(clean)
+            result2 = model.transform(clean)
+            corpus_size = result2.count()  # total number of words
+            corpus = result2.select("id", "vectors").map(lambda (x,y): [x,y]).cache()
+
+    ################ LDA Clustering ################
+
+            ldaModel = LDA.train(corpus, k=1,maxIterations=10,optimizer='online')
+            topics = ldaModel.topicsMatrix()
+            vocabArray = model.vocabulary 
+            topicIndices = sc.parallelize(ldaModel.describeTopics(maxTermsPerTopic = wordNumbers))
+            topTopics = topicIndices.map(lambda topic: topic_render(topic, vocabArray, wordNumbers)).collect()
+
+
+    ########## select most similar topic #############
+    ### bisher bestimmt auf der Algo die Ähnlichkeit nach der maximalen Schnittmenge and topwords, 
+    ### toDo: score mit einbeziehen 
+            listOfMatchCounts=[None] * numberClusters #list of len(numberClusters)
+            if wordNumbers > len(topTopics[0]):
+                maxIndex=len(topTopics[0])
+            else: maxIndex=wordNumbers
+            for u in range (numberClusters):   
+                counter=0
+                for w in range(maxIndex):
+                    for p in range(maxIndex):
+                        if topTopics[0][p] == topics_final[u][w]:
+                            counter=counter+1                   
+                listOfMatchCounts[u]=counter
+
+    ############ save File in Directory ###############      
+            maxTopicIndex="/" + str(maxList(listOfMatchCounts))
+            print maxTopicIndex
+            currentDocument="/" + basenameOfFile  #sollte automatisch gesetzt werden
+            newDestination= clusterDestination + "/" + index + "/documents"+ maxTopicIndex + currentDocument
+            copyfile(pathToSingleDocument, newDestination)
+            print pathToSingleDocument +" saved as " + newDestination
+            saveTopTopics(clusterDestination, currentDocument, topTopics, index, maxTopicIndex)
+            print "Saved topics from " + pathToSingleDocument + "to" + clusterDestination + "/" + index + "/" + "topics" + maxTopicIndex + currentDocument
+    #Noch eine schönere Endmessage einfügen
+    print "Vorgang abgeschlossen"
