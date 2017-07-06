@@ -101,4 +101,3 @@ Button(master, text='Bestätigen', command=show_entry_fields).grid(row=7, column
 master.mainloop()
 
 #sc.stop()
-
