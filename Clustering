@@ -72,7 +72,7 @@ def Clustering(path, numberClusters, ldaIterations, wordNumbers, name, newPath):
 
     ######### load and preprocess data ############
   
-    rdd = sc.wholeTextFiles(path).map(lambda (id, text): Row(id= id, text = text.lower().replace(u'ß', 'ss').replace(u'ö', 'oe').replace(u'ü', 'ue').replace(u'ä', 'ae').replace("\n", "")))
+    rdd = sc.wholeTextFiles(path).map(lambda (id, text): Row(id= id, text = text.lower().replace(u'ß', 'ss').replace(u'ö', 'oe').replace(u'ü', 'ue').replace(u'ä', 'ae').replace("\n", " ")))
     textDataFrame = sqlContext.createDataFrame(rdd)
     dfsort = textDataFrame.sort('id', ascending=True)
     textDataFrame = dfsort.withColumn("id",  monotonically_increasing_id())   
