@@ -17,6 +17,17 @@ import os
 import math
 from pyspark.sql.functions import monotonically_increasing_id
 
+import json
+
+
+import re # needed to remove special character
+from pyspark import Row
+from pyspark.ml.feature import StopWordsRemover
+from pyspark.ml.feature import Tokenizer, CountVectorizer
+from pyspark.mllib.clustering import LDA
+from pyspark.sql import functions as F
+from pyspark.sql.types import StructType, StructField, LongType
+
 #####################################################################
 #                        function definitions                       #
 #####################################################################
@@ -63,6 +74,71 @@ def createDirectories(dirName, numCluster, name, words):
                 if not os.path.exists(NewDirectoryTopics):
                     os.makedirs(NewDirectoryTopics)
                     print NewDirectoryTopics + " was created"
+                    
+                    
+def assignment(assignList, numberClusters):
+  
+    assign = []
+    docList = [] 
+    documentList = []
+
+    for j in range(0, numberClusters):
+        docList = []
+        docList.append(str(j))
+        for i in range(len(assignList)):
+            if (assignList[i][0] == str(j)):
+                documentList.append(assignList[i][1])
+        docList.append(documentList)
+        documentList= []
+        assign.append(docList)    
+    print "assign"  
+    print assign
+    return assign
+                 
+                                              
+                     
+def jsonOutput(topics_final, scorelist, ldaModelPath, assignmentTopics, numberClusters, ldaIterations, wordNumbers, path):
+    data = dict()
+       
+    ldaModel = dict()
+    ldaModel["ldaPath"] = ldaModelPath
+    ldaModel["documentsPath"] = path
+    ldaModel["datetime"] = "zeit fehlt noch"
+    ldaModel["numberCluster"] = numberClusters
+    ldaModel["ldaIterations"] = ldaIterations
+    ldaModel["wordNumbers"] = wordNumbers
+    
+    
+    data["ldaModel"] = ldaModel
+    
+     
+    
+    
+    topicsDic = dict()
+    
+    for i in range(0,len(topics_final)):
+            topics = dict()
+            topic = topics_final[i] 
+            topics["Words" + str(i)] = topic    
+            
+            
+            score = scorelist[i]
+            topics["ScoresTopic" + str(i)] = score
+            
+            for j in range(0,len(assignmentTopics)):
+                if (assignmentTopics[j][0] == str(i)):
+                    topics["Documents" + str(i)] = assignmentTopics[j][1]
+                    
+            topicsDic["Topic" + str(i)] = topics       
+            data["topics"] = topicsDic    
+    
+    zeichenkette = json.dumps(data , indent = 4)
+    print zeichenkette
+    # Open a file for writing
+    out_file = open("/usr/local/spark/data/test.json","w")
+    # Save the dictionary into this file
+    # (the 'indent=4' is optional, but makes it more readable)
+    json.dump(zeichenkette,out_file) 
 
 ################ load documents and  und ################
 def Clustering(path, numberClusters, ldaIterations, wordNumbers, name, newPath):
@@ -71,11 +147,12 @@ def Clustering(path, numberClusters, ldaIterations, wordNumbers, name, newPath):
     sqlContext = SQLContext(sc)
 
     ######### load and preprocess data ############
-  
+   
     rdd = sc.wholeTextFiles(path).map(lambda (id, text): Row(id= id, text = text.lower().replace(u'ß', 'ss').replace(u'ö', 'oe').replace(u'ü', 'ue').replace(u'ä', 'ae').replace("\n", " ")))
     textDataFrame = sqlContext.createDataFrame(rdd)
     dfsort = textDataFrame.sort('id', ascending=True)
     textDataFrame = dfsort.withColumn("id",  monotonically_increasing_id())   
+    textDataFrame.show()
 
     ################# tokenizer ################
 
@@ -87,6 +164,7 @@ def Clustering(path, numberClusters, ldaIterations, wordNumbers, name, newPath):
     from pyspark.sql.functions import udf
     from pyspark.sql.types import StringType, ArrayType
 
+    # remove integer and strings with length == 1
     def entferneZahlen(liste):
         for i in range(len(liste)):
             if (liste[i].isdigit() == True) or (len(liste[i]) == 1) :
@@ -114,32 +192,94 @@ def Clustering(path, numberClusters, ldaIterations, wordNumbers, name, newPath):
     remover = StopWordsRemover(inputCol="words", outputCol="filtered", stopWords = stop)
     clean_text = remover.transform(regexTokenized)
     
-    clean_text.show()
+   # clean_text.show()
+   # clean_text.show(truncate=False)
 
     ################ vectorizer ################
 
+    #clean = clean_text.select("id" , "filtered")
+    #Vector = CountVectorizer(inputCol="filtered", outputCol="vectors")
+    #model = Vector.fit(clean)
+    #result = model.transform(clean)
+    #corpus_size = result.count()  # total number of words
+    #corpus = result.select("id", "vectors").map(lambda (x,y): [x,y]).cache()
+    
     clean = clean_text.select("id" , "filtered")
-    Vector = CountVectorizer(inputCol="filtered", outputCol="vectors")
-    model = Vector.fit(clean)
+    # vectorize
+    cv = CountVectorizer(inputCol="filtered", outputCol="vectors")
+    model = cv.fit(clean)
     result = model.transform(clean)
-    corpus_size = result.count()  # total number of words
-    corpus = result.select("id", "vectors").map(lambda (x,y): [x,y]).cache()
+    #Now, let's transform the results dataframe back to rdd
+    corpus = result.select(F.col('id').cast("long"), 'vectors').rdd.map(lambda x: [x[0], x[1]])
+# training data
+    lda_model = LDA.train(rdd=corpus, k=numberClusters, seed=12, maxIterations=ldaIterations)
+# extracting topics
+    topics1 = lda_model.describeTopics(maxTermsPerTopic=wordNumbers)
+# extraction vocabulary
+    vocabulary = model.vocabulary
+    
+    scoreli = []
+    scorelist = []
+    
+    for topic in range(len(topics1)):
+        print("topic {} : ".format(topic))
+        words = topics1[topic][0]
+        scores = topics1[topic][1]
+        scorelist = []
+        for word in range(len(words)):
+            print vocabulary[words[word]]
+            print scores[word] 
+            scorelist.append(scores[word])
+        scoreli.append(scorelist)
+    print scoreli
+    
+    
+    #corpus = result.select("id", "vectors").map(lambda (x,y): [x,y]).cache()
 
     ################ LDA Clustering ################
-
-    ldaModel = LDA.train(corpus, k=numberClusters, maxIterations=ldaIterations, optimizer='online')
-    topics = ldaModel.topicsMatrix()
+    
+    topics = lda_model.topicsMatrix()
     vocabArray = model.vocabulary #2711 zeilen bei allen rezensionen
-    topicIndices = sc.parallelize(ldaModel.describeTopics(maxTermsPerTopic = wordNumbers))
-
+    topicIndices = sc.parallelize(lda_model.describeTopics(maxTermsPerTopic = wordNumbers))
     topics_final = topicIndices.map(lambda topic: topic_render(topic, vocabArray, wordNumbers)).collect()
 
+    
     for topic in range(len(topics_final)):
         print "Topic" + str(topic)
         for term in topics_final[topic]:
             print term
-        print '\n' 
+        print '\n'     
     
+    # Save and load model
+    lda_model.save(sc, "/usr/local/spark/data/myModelPath")
+    ldaModelPath = "/usr/local/spark/data/myPath" 
+    sameModel = LDAModel.load(sc, "/usr/local/spark/data/myModelPath")
+        
+
+    ################ LDA Clustering ################
+
+    #ldaModel = LDA.train(corpus, k=numberClusters, maxIterations=ldaIterations, optimizer='online')
+    #topics = ldaModel.topicsMatrix()
+    #vocabArray = model.vocabulary #2711 zeilen bei allen rezensionen
+    #topicIndices = sc.parallelize(ldaModel.describeTopics(maxTermsPerTopic = wordNumbers))
+
+    #topics_final = topicIndices.map(lambda topic: topic_render(topic, vocabArray, wordNumbers)).collect()
+
+    #for topic in range(len(topics_final)):
+     #   print "Topic" + str(topic)
+      #  for term in topics_final[topic]:
+       #     print term
+       # print '\n' 
+    
+     # training data
+    #lda_model = LDA.train(corpus, k=5, seed=12, maxIterations=50)
+    # extracting topics
+    #topics = lda_model.describeTopics(maxTermsPerTopic=10)
+    # extraction vocabulary
+    #vocabulary = model.vocabulary
+
+    assignList = list()
+            
     #createDirectories(clusterDestination, numberClusters, index)
     for file in os.listdir(path):
         if file.endswith(""):
@@ -162,18 +302,18 @@ def Clustering(path, numberClusters, ldaIterations, wordNumbers, name, newPath):
             from pyspark.sql.functions import udf
             from pyspark.sql.types import StringType, ArrayType
 
-            def entferneZahlen(liste):
-                for i in range(len(liste)):
-                    if (liste[i].isdigit() == True) or (len(liste[i]) == 1) :
-                        liste[i] = ''   
-                    else: liste[i]=liste[i]
-                return liste
+            #def entferneZahlen(liste):
+             #   for i in range(len(liste)):
+              #      if (liste[i].isdigit() == True) or (len(liste[i]) == 1) :
+               #         liste[i] = ''   
+                #    else: liste[i]=liste[i]
+             #   return liste
 
-            dummy_function_udf = udf(entferneZahlen, ArrayType(StringType()))
-            df = regexTokenized.withColumn("words", dummy_function_udf(regexTokenized['words']))
-            df.show()
+            #dummy_function_udf = udf(entferneZahlen, ArrayType(StringType()))
+            #df = regexTokenized.withColumn("words", dummy_function_udf(regexTokenized['words']))
+            #df.show()
     
-            regexTokenized = df
+            #regexTokenized = df
             
 
     ################ stopwordRemover ################
@@ -187,22 +327,39 @@ def Clustering(path, numberClusters, ldaIterations, wordNumbers, name, newPath):
             stopword =  open("/usr/local/spark/data/stopwords").read().splitlines()
             stop = stopword + stopwordsSpark + stopwordNltk
             remover = StopWordsRemover(inputCol="words", outputCol="filtered", stopWords = stop)
-            #clean_text = remover.transform(regexTokenized)
+            clean_text = remover.transform(regexTokenized)
 
     ################ Vectorisieren ################
 
+            #clean = clean_text.select("id" , "filtered")
+            #Vector = CountVectorizer(inputCol="filtered", outputCol="vectors")
+            #model = Vector.fit(clean)
+            #result2 = model.transform(clean)
+            #corpus_size = result2.count()  # total number of words
+            #corpus = result2.select("id", "vectors").map(lambda (x,y): [x,y]).cache()
+            
+            
             clean = clean_text.select("id" , "filtered")
             Vector = CountVectorizer(inputCol="filtered", outputCol="vectors")
-            model = Vector.fit(clean)
-            result2 = model.transform(clean)
-            corpus_size = result2.count()  # total number of words
-            corpus = result2.select("id", "vectors").map(lambda (x,y): [x,y]).cache()
+            vectorModel = Vector.fit(clean)
+            result2 = vectorModel.transform(clean)
+            orpus_size = result2.count()  # total number of words
+            corpus2 = result2.select(F.col('id').cast("long"), 'vectors').rdd.map(lambda x: [x[0], x[1]])
+                  
 
     ################ LDA Clustering ################
 
-            ldaModel = LDA.train(corpus, k=1,maxIterations=10,optimizer='online')
+           # ldaModel = LDA.train(corpus, k=1,maxIterations=10,optimizer='online')
+            #topics = ldaModel.topicsMatrix()
+           # vocabArray = model.vocabulary 
+           # topicIndices = sc.parallelize(ldaModel.describeTopics(maxTermsPerTopic = wordNumbers))
+          #  topTopics = topicIndices.map(lambda topic: topic_render(topic, vocabArray, wordNumbers)).collect()
+            
+            
+            # training data
+            ldaModel = LDA.train(rdd=corpus2, k=1, seed=12, maxIterations=10)
             topics = ldaModel.topicsMatrix()
-            vocabArray = model.vocabulary 
+            vocabArray = vectorModel.vocabulary #2711 zeilen bei allen rezensionen
             topicIndices = sc.parallelize(ldaModel.describeTopics(maxTermsPerTopic = wordNumbers))
             topTopics = topicIndices.map(lambda topic: topic_render(topic, vocabArray, wordNumbers)).collect()
 
@@ -231,5 +388,22 @@ def Clustering(path, numberClusters, ldaIterations, wordNumbers, name, newPath):
             print pathToSingleDocument +" saved as " + newDestination
             saveTopTopics(clusterDestination, currentDocument, topTopics, index, maxTopicIndex)
             print "Saved topics from " + pathToSingleDocument + "to" + clusterDestination + "/" + index + "/" + "topics" + maxTopicIndex + currentDocument
+            
+            # for assignment
+            topicDocumentList = []
+            topicDocumentList.append(str(maxList(listOfMatchCounts)))
+            topicDocumentList.append(basenameOfFile.replace(".txt", ""))
+            assignList.append(topicDocumentList)
+    
     #Noch eine schönere Endmessage einfügen
     print "Vorgang abgeschlossen"
+    print (assignList)
+    assignmentTopics = assignment(assignList, numberClusters)
+    
+    print "topics_final"
+    print topics_final
+    
+    print "scoreli"
+    print scoreli
+    
+    jsonOutput(topics_final, scoreli, ldaModelPath, assignmentTopics, numberClusters, ldaIterations, wordNumbers, path)  
