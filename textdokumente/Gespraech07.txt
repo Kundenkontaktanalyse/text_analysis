@@ -1,0 +1,54 @@
+Agent: Lenovo Service Center Peter Meier
+Customer: Hallo Yaz Eva Gerdes ich habe gestern schon mal mit ihm telefoniert und sie haben wir auch ein paar Info
+Customer: Sachen per E-Mail zugeschickt und ich würde jetzt gerne einen Laptop bestellen
+Agent: genau sie hatten sich für das IdeaPad y700 interessiert richtig
+Customer: ja genau
+Customer: ja also die Artikelnummer war
+Agent: ja
+Agent: das müsste das IdeaPad sein also in E vorne ne dann y700 und
+Agent: 01 wenn die die Standardausstattung wollen
+Customer: ja genau
+Customer: was heißt Standardausstattung was kann man da denn noch zu kriegen
+Agent: ja also z.b. sie haben sich ja sehr für Computerspiele interessiert und muss vielleicht für Sie die Grafikkarte am interessantesten haben standardmäßig ist eine Nvidia Grafikkarte die GTX 960m Grafikkarte eingebaut
+Agent: doch genau das wäre sie am interessantesten und von der Auflösung her handelt sich ja um ein Full-HD IPS-Display mit einem mit Anti-Glare da warst du mit einer Auflösung von 1000 120 x 100 1080 Pixel hat
+Agent: ja das könnte man aber wenn sie wollen auch aufstocken auf eine bis zu 4k Auflösung sowie das interessiert
+Customer: das hört sich da interessant an wie teuer ist denn sowas
+Agent: das 4k Display das würde dann noch mal 200 € extra kosten und wenn sie sich z.b. eine andere Grafikkarte interessieren würde das ab 50 € losgehen warum
+Customer: okay welche Grafikkarten waren das jetzt noch mal
+Agent: also standardmäßig ist die Nvidia GTX 960m Grafikkarte eingebaut ja da gibt es mittlerweile seit 2 Monaten noch eine neuere Version das ist die GTX 1260 m und ansonsten bieten wir noch alternativ Produkte von AMD an
+Customer: jeder würde ich gerne auch die neuere Version von der Grafikkarte win nehmen
+Agent: also nicht sehen
+Agent: alles klar und die würde dementsprechend 50 € extra kosten
+Customer: okay dann wäre ich jetzt bei wie viel Euro
+Agent: das wären dann 1249 €
+Customer: okay kann man sonst noch irgendwelche Extras dazu kriegen oder
+Agent: sie können den Arbeitsspeicher den Festplattenspeicher noch aufstocken wenn sie das möchten oder noch einen moderneren Akku einbauen standardmäßig hat der Laptop bis zu 5 Stunden Akkulaufzeit und für 200 € extra könnte man das noch mal um zwei Stunden aufstocken
+Customer: ja die Akkulaufzeit wenn man glaube ich nicht so wichtig weil ich meistens sowieso von zu Hause aus Spiele dann kann ich das auch direkt am Ladekabel anschließen  ja dann würde ich glaube ich dabei bleiben dass ich einfach nur eine neuere Grafikkarte nehme und ja
+Agent: falls Sie sich dafür interessieren Festplatten Speicher würde für 128 GB extra je 1 und 28 GB extra würde das auch 35 € extra kosten
+Customer: nee ich glaube nicht das mache ich nicht
+Agent: alles klar okay dann bräuchte ich noch ein paar Daten von ihnen von ihnen also erstmal ihren vollständigen Namen
+Customer: ja Eva Maria
+Agent: Eva-maria
+Customer: Gerdes
+Agent: ja das jetzt klar und ihre Adresse inklusive anschrift
+Customer: Schlehenweg 13
+Agent: schlimm Weg wie schreibt man denn den Schlehenweg
+Customer: ja
+Customer: schl EHI  genau
+Agent: alles klar 13 Uhr und die Adresse als Postleitzahl und Ort
+Customer: das wäre 54863 osnabrück
+Agent: 54863 in Osnabrück
+Customer: genau
+Agent: alles klar osnabrück
+Agent: alles klar und wie würden Sie den Laptop bezahlen also wir bieten zum einen Paypal bezahlen oder auch mit Kreditkarte oder per Überweisungsträger den Überweisungsträger würden wir dann haben wenn wir Ihren Team den Laptop senden direkt mitliefern
+Customer: ja dann mach ich das ganz einfach mit einem Überweisungsträger
+Agent: alles klar dann können wir Ihnen die Bestellung einfach zuschicken und lege einen Überweisungsträger bei HD müssen wir einfach ausfüllen einmal zu Ihrer Bank bringen und dann übernimmt die Bank die die restliche Abfertigung
+Customer: alles klar und wann kann ich damit rechnen dass es geliefert wird
+Agent: ja wenn Sie heute noch bestellen also was sie haben machen dann können Sie innerhalb von 6 Werktagen mit der Lieferung rechnen das wäre somit der 24 mai
+Customer: okay und wird das dann mit DHL verschickt dass ich das im Internet verfolgen kann
+Agent: HNA unser Logistikanbieter ist Hermes zum läuft es nicht über die DHL aber auch bei Hermes können Sie Ihre Bestellung verfolgen sobald Ihre Bestellung komplett eingegangen ist und bearbeitet worden kriegen sie eine Bestellbestätigung per Mail zugesendet und da steht auch der Code dabei inklusive der Seite auf der Sie Ihre Bestellung verfolgen kann
+Customer: okay
+Customer: okay perfekt dann vielen Dank für Ihre Beratung
+Agent: ja sehr gerne und vielen Dank für Ihren Einkauf bei uns
+Customer: tschüss
+Agent: tschüss

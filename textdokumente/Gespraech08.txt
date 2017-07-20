@@ -1,0 +1,30 @@
+Agent: Lenovo Service Center Sven raders am Apparat
+Customer: hallo Sabine Müller ich habe jetzt endlich meinen Laptop bekommen nachdem es Lieferschwierigkeiten gab und mir der Laptop auch mit einer bestätigen Verpackung geliefert wurde jetzt
+Customer: habe ich endlich den Laptop am laufen nur leider kann ich meine ganzen Apple Programme darauf nicht installieren
+Agent: also möchten Apple Programme auf Ihrem Lenovo verwenden
+Customer: ja genau
+Agent: Verkehr aber sie haben ein ganz normales Windows Betriebssystem
+Customer: ja
+Agent: installiere muss ich leider enttäuschen du mit dem Windows Betriebssystem können Sie die meisten Apple-Produkte nicht verwenden weil die nur für Apple Rechner programmiert worden sind
+Customer: und da kann man wirklich gar nichts machen weil also ich habe jetzt immer ein iPhone gehabt und ja das ist natürlich schade wenn ich jetzt iTunes meine ganze Musik da jetzt nicht drauf spielen kann
+Agent: ja wirklich die meisten Apple Programme können Sie auf ihren Windows-Rechner nicht verwenden was sie machen könnten ist dass sie sich ein Apple Betriebssystem kaufen und das auf Ihrem Windows Rechner installieren dafür müssen sie allerdings wieder einen externen Anbieter extra dafür zahlen
+Customer: okay das sehe ich jetzt ehrlich gesagt nicht ein weil ich habe extra bei Ihnen also mit ihrem Kollegen gesprochen mich beraten lassen und ich habe ja extra angerufen damit ich beraten werde und sonst hätte ich das ja auch im Internet bestellen können da hätte mir ihr Kollege ja auch mal sagen können dass ich das nicht auf einem Windows-Rechner machen kann
+Agent: ja bei aller Liebe aber paar Grundkenntnisse erwarten wir von unseren Kunden ja auch also das man jetzt keine Apple Apple Produkte auf einem Windows Rechner installieren kann das ist sehr glaube ich da Allgemeinheit sehr wohl bekannt
+Customer: mir ist das leider nicht bekannt also ich habe ja extra angerufen und ich
+Agent: dann sollten Sie sich vielleicht da mal ein bisschen fortbilden und sie vielleicht mal darüber nachgedacht
+Customer: jetzt werden sie ein bisschen unverschämt
+Agent: okay alles klar das tut mir leid wenn Sie das so empfinden ah ja okay
+Customer: ja
+Customer: also ich sehe es auf jeden Fall nicht an dass ich jetzt mir extra dann noch anderes Betriebssystem kaufen muss deswegen würde ich dann das Produkt gerne komplett zurückschicken und wenn sie mir jetzt kein anderes Betriebssystem umsonst da drauf machen dann möchte ich auch das Produkt gar nicht noch mal neu bekommen und bestellen woanders
+Agent: also ein Apple Betriebssystem können wir leider überhaupt nicht anbieten deswegen wenn sie überhaupt nicht zufrieden sind in unserem Volk dann schick wie es halt zurück
+Customer: ja okay dann mache ich das jetzt so
+Agent: ja haben sie noch den Retourenschein
+Customer: ja den habe ich
+Agent: alles klar dann kennst du den einfach ausfüllen und an uns zurückschicken und dann erstatten wir Ihnen das Geld wenn dies bereits überwiesen haben
+Customer: ja okay dann machen wir das so
+Agent: ja okay dann machen wir das so und tut mir noch mal sehr leid dass das mit Ihrem Produkt nicht geklappt hat
+Customer: ja mir tut es auch leid
+Agent: alles klar dann wünsche ich Ihnen trotzdem noch einen schönen Tag. Ja
+Customer: ja den wünsche ich Ihnen auch
+Agent: Auf Wiedersehen
+Customer: ciao

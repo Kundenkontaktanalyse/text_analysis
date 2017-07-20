@@ -1,0 +1,61 @@
+Agent: Lenovo Service Center Peter Meier am Apparat
+Customer: hallo hier ist Sabine Müller ich hatte vor paar Tagen angerufen wegen einem Laptop und sie hat mir auch schon paar Informationen per Mail geschickt
+Agent: Frau Müller richtig ne ich erinnere mich sie hatten sich für ein Yoga ein Yoga Tablet für uns interessieren Yoga Notebook von uns interessiert richtig
+Customer: ja genau
+Customer: ja genau und jetzt würde ich gerne einen bestellen ich habe aber noch ein paar Fragen
+Agent: natürlich schieße sie los
+Customer: in welchen Farben kann man den Laptop bekommen
+Agent: für welches unsere Notebooks interessieren sich denn
+Customer: ach ich glaube das war 720 und 499 1199 Euro
+Agent: der für 199 € da gibt's bei uns leider noch kein Notebook
+Customer: nee leider nicht
+Agent: Affe 1199 haben wir die Lenovo Yoga 720 CD im Angebot
+Agent: der war das richtig dass er sich für 15 Zoll Bildschirmdiagonale interessieren
+Customer: ja genau
+Agent: genau und was war Ihre Frage jetzt genau dazu
+Customer: ob ich den jetzt nur in Schwarz und Silber bekommen kann oder ob es da auch mehrere Farben zugibt
+Agent: Teil also haben die Standard Variante ist bei uns in Silber aber sie können den Laptop auch in jeder beliebigen Farbe nachbestellen normalerweise kostet das 50 € extra aber zur Zeit habe werde Angebot am laufen so als kleine Promotion des Laptops auch in jeder beliebigen Farbe ausgeliefert werden können wir können den Zweifel auch in blau oder pink oder rot wie sie auch wollen bestellen
+Customer: ah das hört sich gut an dann würde ich den gerne in weiß haben wollen
+Agent: also den novo Yoga 720 in Weiß dafür interessieren für dich
+Customer: ja genau und das Angebot wäre jetzt was noch mal genau
+Agent: alles klar
+Agent: ähm ja dafür diese neue Farbe die gibt's jetzt gratis normalerweise kosten Farben die von schwarz oder silber abweisen 50 € extra aber zur Zeit des Vibration das ist das dass du mir neue Farbe gratis ist
+Customer: okay also bezahle ich dann 1199 Euro für den Laptop insgesamt
+Agent: genau inklusive Lieferung
+Customer: alles klar das hört sich gut an wie machen wir das mit dem mit der mit dem Bezahlen und der Bestellung
+Agent: ja so für die für die Bestellung bräuchte ich gleich einmal Ihre komplette Adresse sowie Name und Lieferzeit und Sie können sich eine Bezahlart auswählen können bei uns entweder über Kreditkarte zahlen oder über PayPal oder auch wenn Sie ein bisschen bisschen klassisch mögen per per Banküberweisung haben dafür können wir Ihnen eine Rechnung ausstellen die wir Ihnen dann mit schicken mit dem mit dem Foto
+Customer: ja ich glaube
+Customer: ja dann da ich kein Paypal habe und auch keine Kreditkarte würde ich dann gerne das per Rechnung bezahlen
+Agent: alles klar dann schicken wir Ihnen eine Rechnung mit dem Produkt hinzu ja dann bräuchte ich einmal Ihren vollständigen Namen und Ihre Adresse
+Customer: ja Sabine Müller
+Agent: Sabine Müller Müller mit UE richtig
+Customer: nee das war nur die E-Mail-Adresse sonst werde ich mit mir geschrieben
+Agent: alles klar
+Agent: E-Mail-Adresse habe ich noch dann bräuchte ich diese Straße und die Hausnummer
+Customer: Steinfurter Straße 13
+Agent: Steinfurter Straße 13 alles klar
+Customer: in Münster
+Agent: in Münster und die Postleitzahl dazu
+Customer: jetzt mehr erfahren
+Agent: das ist gar kein Problem wissen Sie ob Sie münzausgabe ich typisch entweder 48145 oder 4143 haben sie eine davon Zufälle
+Customer: ja II
+Agent: II alles klar so 48143  oder 5 oder wie auch wie dem auch sei wann möchten Sie das Produkt zu geliefert bekommen
+Agent: am besten wären Zeitpunkt wo sie auch sicher zu Hause sind und Lieferung dauert immer mindestens 5 Werktage somit könnten wir den Laptop frühestens am Freitag den 19. überliefern
+Customer: ja am besten natürlich so früh wie möglich 19 mal wer auf jeden Fall möglich da bin ich auch den ganzen Tag zu Hause ab dem 21 Mal bin ich dann im Urlaub ich hätte gerne auch den Laptop vor meinem Urlaub damit ich den noch mitnehmen kann
+Agent: alles klar dann schreibe in die Notizen auf dass die ja dass die Lieferung sind die Lieferant sich ein bisschen beeilen soll das dann auch sicher zum 19. Mai da ist
+Agent: würde Ihnen passen wenn der Laptop Vormittag so zwischen 10 Uhr und 12 Uhr ankommt
+Customer: ja das
+Agent: alles klar dann vermerke ich den 19.Mai zwischen 10 und 12 Uhr damit ihr Laptop auch rechtzeitig vor dem Urlaub da ist
+Customer: okay perfekt wann kriege ich ungefähr die Rechnung muss ich die dann danach bezahlen und oder das also
+Agent: bitte die Rechnung die Rechnung wird mit dem Produkt mitgeschickt und muss dann immer innerhalb von zwei Wochen bezahlt werden
+Customer: alles klar danke schön
+Agent: ja gerne haben Sie sonst noch weitere Fragen zu Ihrem Produkt oder interessieren Sie sich noch für weitere von unseren Produkten
+Customer: es wäre ganz gut wenn ich dazu vielleicht noch eine Laptoptasche bekommen kann
+Agent: ja natürlich da haben wir auch welche im Angebot für nur 10 € extra
+Customer: okay welchen Farben gibt's sie dann also die werden dann auch 15 Zoll groß ne
+Agent: ja genau die sind direkt an unsere Laptop Standardgrößen angepasst gibt es einmal in Schwarz in weiß und in silber
+Customer: dann würde ich schwarz gerne nehmen
+Agent: alles klar dann packt jedoch dabei die Kosten belaufen sich dabei auf 10 €
+Customer: okay danke schön
+Agent: alles klar dann schicken wir die noch mit super einen schönen Tag noch
+Customer: vielen Dank tschüss

@@ -1,0 +1,56 @@
+Agent: Lenovo Service Center Peter Meier
+Customer: hallo hier ist Eva Gerdes ich hätte gerne einen neuen Laptop können Sie mir da weiterhelfen
+Agent: natürlich dass es bei mir genau richtig für was benötigen Sie denn neuen Laptop was wollen Sie mit dem machen
+Customer: Spiele spiel ich spiele gerne spiele Sims oder WOW
+Agent: okay also wohl online Spiele als auch lokale Spiele auf dem Rechner
+Customer: ja genau
+Agent: AWO Wesen spielen sie dann brauchen Sie nicht die auch ziemlich viel Rechenpower oder
+Customer: ja das wäre schon ganz gut
+Agent: ja da hätten wir für Sie z.b. IdeaPad im Angebot da gibt's die y700 Serie die extra für m Games ausgelegt es am ja natürlich sehr leistungsstark sind und somit am besten geeignet sind für Leute die sich nicht auf ein erstklassiges Gaming Erlebnis verzichten verzichten müssen
+Customer: alles klar also die Auflösung von dem von den Bildern dann auch sehr gut
+Agent: ja die IdeaPad die haben eine Auflösung von also eine Full-HD-Auflösung des heißt 1920 x 1080 Pixeln ja natürlich selbstverständlich in 16 zu 9 Bildschirm Verhältnis
+Customer: ja das hört sich natürlich sehr gut an in welchem Preissegment liegt man da so
+Agent: aber Gaming PC sie sind natürlich etwas teurer als wie uns Standard Laptops am die gehen so ab 1100 € los
+Customer: okay und bis wie wie sowas ist somit das teuerste
+Agent: Bärbel Jahn teuer teuer ist immer eine schwere Frage teuer teurer geht immer aber für die meisten Laptops die wir verkaufen die haben seinen Scans von 2500 € aber das Standardmodell was eigentlich alles abdeckt was man als Gaming Laptop braucht der bewegt sich im Rahmen von 1200 €
+Customer: geht immer
+Customer: okay
+Customer: okay
+Agent: RTL in Bad diesen 1200 Euro da ist dann ein oder der neueste Intel Core i7 Prozessor drinnen mit Windows 10 und 1 Terabyte Festplattenspeicher mit 512GB SSD und so weiter und sofort alles was man braucht um mit bis zu 16 Gigabyte ddr4 Arbeitsspeicher der ganz neue scheiß bei der Technik wenn ich das als fragen darf
+Customer: okay  und wie ist das mit Tastatur kann man da auch selber irgendwelche Tasten programmieren
+Agent: bei der y700 Serie sind insgesamt vier Programmierer programmierbare Tasten dabei haben zusätzlich zu den ganzen Standard Tasten wie wie die FAL wie diese Funktionstasten F1 bis F12 ja ziemlich viel Flexibilität gewährleistet
+Customer: okay das hört sich sehr gut an
+Agent: kann zudem bieten die Laptops auch noch sehr viele extra extra hier bis zu fünf USB-Anschlüsse womit man dennoch Headsets und haben ja weitere Geräte die man eventuell noch zu zocken benötigen könnte anschließend lernen und alles was das Zocker Herz begehrt kann angeschlossen werden
+Customer: ja wie ist das mit der Tastatur ist das eine englische oder deutsche oder kann ich mir das aussuchen
+Agent: das können Sie sich aussuchen standardmäßig und wahrscheinlich die deutsche Tastatur aventis wünschen könnten wir es auch auf Englisch umstellen
+Customer: ja also da ich viel online auch mit auf englisch schreibe würde ich halt gerne auch die englische Tastatur haben
+Agent: ähm ja das wäre gar kein Problem das müssen Sie nur wenn Sie den Laptop dann letztendlich bestellen einmal mit vermerken
+Customer: okay und was war jetzt das Modell was so am meisten verkauft wird
+Agent: was ist das IdeaPad y700 mit 17 Zoll Bildschirmdiagonale
+Customer: 17 Zoll und wie teuer war das jetzt
+Agent: 1199 Euro kostet das inklusive Versand
+Customer: okay wie lange dauert dann immer so der Versand
+Agent: wenn wenn der Laptop oder das Notebook nicht weiter angepasst werden musste erst das üblicherweise so zwischen 5 und 7 Werktage als würden sie heute noch bestellen könnte das Notebook bereits nächste Woche Freitag bei Ihnen sein
+Customer: ich bräuchte dann noch ein bisschen Bedenkzeit ob ich jetzt den Laptop wirklich nehmen deswegen würde ich dann vielleicht morgen dann noch mal zurückrufen und mich dann letztendlich entscheiden
+Agent: alles klar danke
+Agent: alles klar dann können sie sich morgen bei mir einfach noch mal melden oder bei einem meiner Kollegen falls sie nicht meine Leitung erwischen Farben  ja und dann können Sie entweder Ihre Bestellung aufgeben oder sich noch weitere Informationen einholen und wenn Sie möchten kann ich Ihnen auch unsere Kataloge oder weitere Informationen zu unseren Produkten per Mail zukommen lassen haben
+Customer: ja das wäre sehr gut können Sie das gleich noch machen
+Agent: ja natürlich das kann ich in den nächsten 5 Minuten machen wenn Sie mir einmal Ihre E-Mail-Adresse gehen lassen
+Customer: okay das wär Eva.
+Agent: ist jeder mit v
+Customer: ja genau
+Agent: ja
+Customer: Gerdes
+Agent: Gerdes
+Customer: ja je
+Agent: Candy Gerdes einmal buchstabieren bitte
+Customer: grds
+Agent: DES
+Customer: App gmx.de
+Agent: gmx.de alles klar denn dann sammle ich gleich alle Informationen zusammen und lass ihn die dann umgehend zukommen
+Customer: okay vielen Dank für Ihre Beratung
+Agent: ja gar kein Problem und wenn sie morgen wieder mit mir sprechen wollen dann fragen Sie einfach nach Peter Meyer
+Customer: okay das mache ich sie haben mir sehr geholfen danke schön
+Agent: einen schönen Tag noch
+Customer: danke gleichfalls tschüss
+Agent: ciao

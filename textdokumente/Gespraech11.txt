@@ -1,0 +1,45 @@
+Agent: Lenovo Service Center Sven Harders am Apparat
+Customer: Hallo ihr Sabine Möller ich habe letzte Woche einen Laptop bei ihm bestellte sollte jetzt eigentlich gestern ankommen er ist aber immer noch nicht da und jetzt wollte ich mal fragen wo der bleibt
+Agent: okay Anlässe haben Sie bestellt dann bräuchte dazu einmal Ihre Bestellnummer
+Customer: ja Moment
+Agent: wissen Sie wo die steht sie müssen eine Bestätigungs-Mail von uns erhalten haben und dort steht sie auf der Bestellbestätigung oben rechts
+Customer: ja Moment ich muss mal eben kurz suchen  ja ich habe sie gefunden die Bestellnummer ist 123456
+Agent: alles klar
+Agent: 1 2 3 4 5 6 Klasse muss einmal kurz in unserem System suchen wo die letzte Zeit steckt
+Customer: ja genau
+Agent: das ist ein Lenovo Yoga aus der 27er Serie richtig
+Customer: ja das stimmt
+Agent: mit 50 Zoll Ableton Biergarten a sie haben den in rot bestellt also eine eigene Farbe
+Customer: ja
+Customer: nee ich habe den in weiß bestellt
+Agent: in weiß alles klar stimmt jetzt sehe ich es richtig ja bei unserer Fab unser Farbmischanlage diese Woche ein kleines Problem dass ich habe dich dort alle Bestellungen ein bisschen aufgestaut da ich wurde Ihre Bestellung auch leider etwas trinken verschoben
+Customer: ja genau
+Agent: ihr Laptop ist wohl schon an die Post übergeben worden und müsste dann übermorgen als am Montag ankommen
+Customer: okay das kann ja mal passieren dass die Verspätung haben aber dann möchte ich auch gerne informiert werden wenn das passiert weil ich fahre nämlich morgen abend schon in Urlaub und ich hätte gerne den Laptop mitgenommen das geht dann ja jetzt nicht
+Agent: hat er
+Agent: nee da wir natürlich ein kleines Problemchen und fahren Sie dann Urlaub
+Customer: ich fliege nach Spanien
+Agent: nach Spanien okay das was ich schade wenn sie in der Nähe vielleicht den Laptop noch ein bisschen umleiten können direkt zu ihren Urlaub schicken
+Customer: nee ich möchte auch gerne Urlaub machen und nicht auf meinen Laptop warten ich hatte den am liebsten jetzt sofort mitgenommen
+Agent: ja wenn Sie Urlaub machen wollen brauchen sie auch gar kein Laptop
+Customer: doch ich mache sehr gerne Fotos in meiner Freizeit und würde sie ja auch sofort danach gerne bearbeiten und ja das ist ja jetzt nicht möglich ne
+Agent: aha immer diese Spanisch alles klar  also
+Agent: ja da kann ich ihn leider auch nicht sehr viel weiterhelfen der Laptop kommt leider erst am Montag an unterkellert gar nichts machen ich kann die Beschwerde gerne an unsere Produktionsabteilung weitergeben aber da können wir leider auch nichts machen und bei Verspätungen von zwei Tagen haben sie leider auch noch kein Anrecht auf eine Entschädigung
+Customer: okay ja das kann ja mal passieren aber ich würde trotzdem das nächste Mal gerne sofort informiert werden und nicht extra anrufen müssen Umfragen wo der bleibt
+Agent: ja okay dann vermerke ich das einfach und nächstes Mal kriegen sie dann hoffentlich Bescheid wenn es bis dann funktioniert
+Customer: okay und wann genau seid ihr jetzt ankommen
+Agent: am Montag ist bereit wie ich wie ich bereits gesagt habe
+Customer: ja aber da bin ich dann ja im Urlaub das passt mir dann ja nicht
+Agent: ja dann dann wird der bitte entweder bei ihrem Nachbarn abgegeben obwohl wenn sie da jemand angegeben haben der Pakete für sie annehmen kann
+Customer: dann kann den ja auch keine annehmen
+Customer: nee ich möchte den schon gerne selber entgegennehmen also ich trau meinen Nachbarn da nicht ganz
+Agent: Verkehr
+Agent: Verkehr und normalerweise es gibt ja auch immer noch Paketstation bei denen die Pakete dann als Alternative abgegeben werden würde ihnen das passen
+Customer: okay und das muss ich jetzt bei ihnen angeben oder wie läuft das
+Agent: nein das läuft automatisch zu müssen wir angehen wenn wir das nicht wollen
+Agent: wenn Sie das nicht wollen würden dann würde Laptop zu uns zurückgeschickt werden und dann müssten sie wenn sie aus dem Urlaub zurückkehren haben der sich noch mal bei uns melden damit wir den noch mal neu losschicken kann
+Customer: okay ja dann dass ich dann an eine Packstation schicken
+Agent: alles klar sehr gut
+Customer: okay dann  vielen Dank ihre Formation
+Agent: entschuldige ich mich ja dann entschuldige ich mich noch mal ganz von ganzem Herzen im Laden zu Servicecenter wünsche Ihnen noch einen schönen Tag und einen schönen Urlaub
+Customer: danke schön tschüss
