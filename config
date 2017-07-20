@@ -1,0 +1,13 @@
+{
+    "variables": {
+      "stopWordsSpark": "/usr/local/spark/data/stopwordsSpark",
+      "ownStopwords": "/usr/local/spark/data/ownStopwords",
+      "jsonDestination": "/usr/local/spark/data/",
+      "numberOfTopics": 5,
+      "numberOfWordsPerTopic": 10,
+      "clusteringIterations": 50,
+      "tmpDirectory": "/usr/local/spark/data/tmp/",
+      "pathDirectory": "/usr/local/spark/data/textdokumente",
+      "days": 7
+    }
+  }
